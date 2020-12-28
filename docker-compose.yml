@@ -12,3 +12,9 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
+    networks: 
+      - tf2
+networks: 
+  tf2:
+    external:
+      name: vm_nw
