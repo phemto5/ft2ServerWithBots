@@ -5,7 +5,6 @@ metadata:
   labels:
     io.kompose.service: tf2data
   name: tf2data-pv
-  namespace: tf2
 spec:
   accessModes:
   - ReadWriteOnce
@@ -17,7 +16,7 @@ spec:
     path: /mnt/kube/tf2
   claimRef:
     name: tf2data-claim
-    namespace: tf2
+    namespace: default
   nodeAffinity:
     required:
       nodeSelectorTerms:
