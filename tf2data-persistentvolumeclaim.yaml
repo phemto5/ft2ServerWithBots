@@ -4,11 +4,12 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: tf2data
-  name: tf2data
+  name: tf2data-claim
+  namespace: tf2
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: "local-storage"
+  storageClassName: ""
   resources:
     requests:
       storage: 5Gi

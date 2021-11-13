@@ -5,6 +5,7 @@ metadata:
   labels:
     io.kompose.service: tf2data
   name: tf2data-pv
+  namespace: tf2
 spec:
   accessModes:
   - ReadWriteOnce
@@ -14,13 +15,15 @@ spec:
   storageClassName: local-storage
   local:
     path: /mnt/kube/tf2
+  claimRef:
+    name: tf2data-claim
+    namespace: tf2
   nodeAffinity:
     required:
       nodeSelectorTerms:
         - matchExpressions:
           - key: kubernetes.io/hostname
             operator: In
-            values: 
-              - node/as-r610 
-              
+            values:
+              - node/as-r610
 status: {}
