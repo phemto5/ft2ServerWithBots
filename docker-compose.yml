@@ -1,14 +1,15 @@
 version: "3"
 services:
   teamfortress2:
-    image: gameservers/teamfortress2
+    image:  nicholasaa/teamfortress2  
     ports:
       - 27015:27015
       - 27015:27015/udp
     env_file: tf2.env
     volumes:
-      - /mnt/data/tf2:/home/steamsrv/tf2
+      - tf2data:/home/steamsrv/tf2
     container_name: "team_fortress_2"
+    hostname: "team_fortress_2"
     restart: unless-stopped
     tty: true
     stdin_open: true
@@ -18,3 +19,7 @@ networks:
   tf2:
     external:
       name: vm_nw
+volumes:
+  tf2data:
+    external:
+      name: teamfortress2

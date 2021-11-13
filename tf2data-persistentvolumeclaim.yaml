@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: tf2data
+  name: tf2data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "local-storage"
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: tf2data-pv
+status: {}

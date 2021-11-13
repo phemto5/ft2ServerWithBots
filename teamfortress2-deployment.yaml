@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f docker-compose.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: teamfortress2
+  name: teamfortress2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: teamfortress2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f docker-compose.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/vm_nw: "true"
+        io.kompose.service: teamfortress2
+    spec:
+      containers:
+      - env:
+        - name: APP_RCON_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: APP_RCON_PASSWORD
+              name: tf2-env
+        - name: APP_SERVER_CONTACT
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_CONTACT
+              name: tf2-env
+        - name: APP_SERVER_MAP
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_MAP
+              name: tf2-env
+        - name: APP_SERVER_MAX_PLAYERS
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_MAX_PLAYERS
+              name: tf2-env
+        - name: APP_SERVER_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_NAME
+              name: tf2-env
+        - name: APP_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_PORT
+              name: tf2-env
+        - name: APP_SERVER_REGION
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_REGION
+              name: tf2-env
+        - name: APP_SERVER_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SERVER_TOKEN
+              name: tf2-env
+        image: nicholasaa/teamfortress2
+        imagePullPolicy: ""
+        name: team-fortress-2
+        ports:
+        - containerPort: 27015
+        - containerPort: 27015
+          protocol: UDP
+        resources: {}
+        stdin: true
+        tty: true
+        volumeMounts:
+        - mountPath: /home/steamsrv/tf2
+          name: tf2data
+      hostname: teamfortress2
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: tf2data
+        persistentVolumeClaim:
+          claimName: tf2data
+status: {}
